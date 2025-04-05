@@ -1,0 +1,178 @@
+{
+  "__collection__": {
+    "questions": {
+      "__doc__": {
+        "q1": {
+          "id": "q1",
+          "bankId": "bank1",
+          "text": "Si 3x + 5 = 20, ¿cuál es el valor de x?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 2,
+          "options": ["3", "5", "8", "10"],
+          "correctAnswer": "5",
+          "explanation": "Para resolver esta ecuación, debemos despejar x. Primero, restamos 5 a ambos lados: 3x = 15. Luego, dividimos ambos lados por 3: x = 5.",
+          "metadata": {
+            "thematicAxis": ["ALG"],
+            "skills": ["RESOL"],
+            "thematicUnits": ["ECUA"]
+          }
+        },
+        "q2": {
+          "id": "q2",
+          "bankId": "bank1",
+          "text": "¿Cuál es el resultado de (2x + 3)(x - 1)?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 3,
+          "options": ["2x² + x - 3", "2x² - 2x + 3x - 3", "2x² + x - 3", "2x² - 2x - 3"],
+          "correctAnswer": "2x² + x - 3",
+          "explanation": "Aplicamos la propiedad distributiva: (2x + 3)(x - 1) = 2x(x) + 2x(-1) + 3(x) + 3(-1) = 2x² - 2x + 3x - 3 = 2x² + x - 3.",
+          "metadata": {
+            "thematicAxis": ["ALG"],
+            "skills": ["CALC"],
+            "thematicUnits": ["POLI"]
+          }
+        },
+        "q3": {
+          "id": "q3",
+          "bankId": "bank1",
+          "text": "¿Cuál es la solución del sistema de ecuaciones: 2x + y = 5, x - y = 1?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 4,
+          "options": ["x=2, y=1", "x=3, y=-1", "x=2, y=2", "x=1, y=3"],
+          "correctAnswer": "x=2, y=1",
+          "explanation": "De la segunda ecuación: x - y = 1, despejamos y: y = x - 1. Sustituimos en la primera ecuación: 2x + (x - 1) = 5. Resolvemos: 3x - 1 = 5, 3x = 6, x = 2. Sustituimos para hallar y: y = 2 - 1 = 1.",
+          "metadata": {
+            "thematicAxis": ["ALG"],
+            "skills": ["RESOL"],
+            "thematicUnits": ["SIST"]
+          }
+        },
+        "q4": {
+          "id": "q4",
+          "bankId": "bank2",
+          "text": "¿Cuál es el área de un triángulo con base 6 cm y altura 8 cm?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 1,
+          "options": ["24 cm²", "48 cm²", "14 cm²", "30 cm²"],
+          "correctAnswer": "24 cm²",
+          "explanation": "El área de un triángulo se calcula mediante la fórmula A = (base × altura) ÷ 2. Sustituyendo los valores: A = (6 × 8) ÷ 2 = 48 ÷ 2 = 24 cm².",
+          "metadata": {
+            "thematicAxis": ["GEO"],
+            "skills": ["CALC"],
+            "thematicUnits": ["TRIA"]
+          }
+        },
+        "q5": {
+          "id": "q5",
+          "bankId": "bank2",
+          "text": "En un círculo de radio 5 cm, ¿cuál es la longitud de la circunferencia?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 2,
+          "options": ["10π cm", "25π cm", "5π cm", "15π cm"],
+          "correctAnswer": "10π cm",
+          "explanation": "La longitud de una circunferencia se calcula mediante la fórmula C = 2πr, donde r es el radio. Sustituyendo r = 5 cm, obtenemos C = 2π × 5 cm = 10π cm.",
+          "metadata": {
+            "thematicAxis": ["GEO"],
+            "skills": ["CALC"],
+            "thematicUnits": ["CIRC"]
+          }
+        },
+        "q6": {
+          "id": "q6",
+          "bankId": "bank3",
+          "text": "¿Qué figura literaria consiste en atribuir características humanas a objetos inanimados o seres no humanos?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 3,
+          "options": ["Metáfora", "Personificación", "Símil", "Hipérbole"],
+          "correctAnswer": "Personificación",
+          "explanation": "La personificación es una figura literaria que consiste en atribuir cualidades o acciones propias de seres humanos a objetos inanimados, animales o conceptos abstractos. Ejemplo: 'El viento susurraba entre los árboles'.",
+          "metadata": {
+            "thematicAxis": ["LIT"],
+            "skills": ["COMP"],
+            "thematicUnits": ["FIGU"]
+          }
+        },
+        "q7": {
+          "id": "q7",
+          "bankId": "bank3",
+          "text": "¿Cuál de las siguientes opciones es un ejemplo de oración compuesta?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 2,
+          "options": [
+            "El perro ladra fuertemente.", 
+            "María estudia y Pedro juega.", 
+            "Los niños corren en el parque.", 
+            "Aquella casa antigua."
+          ],
+          "correctAnswer": "María estudia y Pedro juega.",
+          "explanation": "Una oración compuesta contiene dos o más predicaciones, es decir, dos o más verbos principales unidos por conjunciones o signos de puntuación. En este caso, 'María estudia y Pedro juega' contiene dos oraciones simples unidas por la conjunción 'y'.",
+          "metadata": {
+            "thematicAxis": ["GRAM"],
+            "skills": ["IDEN"],
+            "thematicUnits": ["SINT"]
+          }
+        },
+        "q8": {
+          "id": "q8",
+          "bankId": "bank4",
+          "text": "¿Cuál de los siguientes orgánulos se encarga de la síntesis de proteínas en la célula?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 3,
+          "options": ["Mitocondria", "Ribosoma", "Aparato de Golgi", "Lisosoma"],
+          "correctAnswer": "Ribosoma",
+          "explanation": "Los ribosomas son los orgánulos celulares encargados de la síntesis de proteínas. Utilizan el ARN mensajero como plantilla y el ARN de transferencia para incorporar los aminoácidos correctos en la cadena proteica en formación.",
+          "metadata": {
+            "thematicAxis": ["BIO"],
+            "skills": ["IDEN"],
+            "thematicUnits": ["CELU"]
+          }
+        },
+        "q9": {
+          "id": "q9",
+          "bankId": "bank4",
+          "text": "¿Cuál es la función principal de la mitocondria?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 2,
+          "options": [
+            "Digestión celular", 
+            "Producción de energía", 
+            "Transporte de materiales", 
+            "Almacenamiento de agua"
+          ],
+          "correctAnswer": "Producción de energía",
+          "explanation": "La mitocondria es conocida como la 'central energética' de la célula porque en ella se lleva a cabo la respiración celular, un proceso que permite obtener ATP (adenosín trifosfato), la principal molécula de energía utilizada por las células.",
+          "metadata": {
+            "thematicAxis": ["BIO"],
+            "skills": ["IDEN"],
+            "thematicUnits": ["CELU"]
+          }
+        },
+        "q10": {
+          "id": "q10",
+          "bankId": "bank4",
+          "text": "¿Qué proceso es fundamental para todas las células y consiste en la replicación del ADN y la posterior división del núcleo?",
+          "imageUrl": null,
+          "type": "multiple_choice",
+          "difficulty": 3,
+          "options": ["Meiosis", "Mitosis", "Catálisis", "Fotosíntesis"],
+          "correctAnswer": "Mitosis",
+          "explanation": "La mitosis es el proceso de división celular en el que una célula madre se divide para formar dos células hijas idénticas. Incluye la replicación del ADN y la división del núcleo, asegurando que cada célula hija reciba una copia completa del material genético.",
+          "metadata": {
+            "thematicAxis": ["BIO"],
+            "skills": ["IDEN"],
+            "thematicUnits": ["CELU"]
+          }
+        }
+      }
+    }
+  }
+}

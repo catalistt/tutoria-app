@@ -1,0 +1,56 @@
+{
+  "__collection__": {
+    "subjects": {
+      "__doc__": {
+        "subject1": {
+          "id": "subject1",
+          "name": "Matemáticas",
+          "description": "Álgebra, geometría, aritmética y más",
+          "imageUrl": "https://via.placeholder.com/150?text=Matemáticas",
+          "order": 1,
+          "isActive": true
+        },
+        "subject2": {
+          "id": "subject2",
+          "name": "Lenguaje",
+          "description": "Comprensión lectora, gramática y comunicación",
+          "imageUrl": "https://via.placeholder.com/150?text=Lenguaje",
+          "order": 2,
+          "isActive": true
+        },
+        "subject3": {
+          "id": "subject3",
+          "name": "Ciencias",
+          "description": "Biología, química y física",
+          "imageUrl": "https://via.placeholder.com/150?text=Ciencias",
+          "order": 3,
+          "isActive": true
+        },
+        "subject4": {
+          "id": "subject4",
+          "name": "Historia",
+          "description": "Historia de Chile y del mundo",
+          "imageUrl": "https://via.placeholder.com/150?text=Historia",
+          "order": 4,
+          "isActive": true
+        },
+        "subject5": {
+          "id": "subject5",
+          "name": "Inglés",
+          "description": "Inglés básico, intermedio y avanzado",
+          "imageUrl": "https://via.placeholder.com/150?text=Inglés",
+          "order": 5,
+          "isActive": true
+        },
+        "subject6": {
+          "id": "subject6",
+          "name": "Física",
+          "description": "Mecánica, electricidad y magnetismo",
+          "imageUrl": "https://via.placeholder.com/150?text=Física",
+          "order": 6,
+          "isActive": true
+        }
+      }
+    }
+  }
+}

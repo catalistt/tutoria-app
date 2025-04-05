@@ -1,0 +1,44 @@
+{
+  "__collection__": {
+    "questionBanks": {
+      "__doc__": {
+        "bank1": {
+          "id": "bank1",
+          "subjectId": "subject1",
+          "name": "Álgebra básica",
+          "description": "Conceptos fundamentales de álgebra",
+          "questionCount": 5,
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        },
+        "bank2": {
+          "id": "bank2",
+          "subjectId": "subject1",
+          "name": "Geometría plana",
+          "description": "Figuras geométricas y sus propiedades",
+          "questionCount": 5,
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        },
+        "bank3": {
+          "id": "bank3",
+          "subjectId": "subject2",
+          "name": "Comprensión lectora",
+          "description": "Análisis y comprensión de textos",
+          "questionCount": 5,
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        },
+        "bank4": {
+          "id": "bank4",
+          "subjectId": "subject3",
+          "name": "Biología celular",
+          "description": "Estructura y función de la célula",
+          "questionCount": 5,
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}

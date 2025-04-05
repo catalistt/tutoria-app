@@ -1,0 +1,52 @@
+{
+  "__collection__": {
+    "users": {
+      "__doc__": {
+        "admin": {
+          "id": "admin",
+          "name": "Administrador",
+          "email": "admin@tutoria.com",
+          "grade": "Administrador",
+          "educationalGoal": "Gestionar la plataforma",
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "lastLoginAt": "2025-04-25T00:00:00.000Z",
+          "profileImageUrl": null,
+          "role": "admin"
+        },
+        "user1": {
+          "id": "user1",
+          "name": "María González",
+          "email": "maria@ejemplo.com",
+          "grade": "Primero medio",
+          "educationalGoal": "Mejorar mis notas en matemáticas",
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "lastLoginAt": "2025-04-25T00:00:00.000Z",
+          "profileImageUrl": null,
+          "role": "student"
+        },
+        "user2": {
+          "id": "user2",
+          "name": "Pedro Sánchez",
+          "email": "pedro@ejemplo.com",
+          "grade": "Segundo medio",
+          "educationalGoal": "Preparar la PAES",
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "lastLoginAt": "2025-04-25T00:00:00.000Z",
+          "profileImageUrl": null,
+          "role": "student"
+        },
+        "user3": {
+          "id": "user3",
+          "name": "Ana López",
+          "email": "ana@ejemplo.com",
+          "grade": "Tercero medio",
+          "educationalGoal": "Reforzar contenidos de ciencias",
+          "createdAt": "2025-04-25T00:00:00.000Z",
+          "lastLoginAt": "2025-04-25T00:00:00.000Z",
+          "profileImageUrl": null,
+          "role": "student"
+        }
+      }
+    }
+  }
+}

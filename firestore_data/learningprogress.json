@@ -1,0 +1,47 @@
+{
+  "__collection__": {
+    "learningProgress": {
+      "__doc__": {
+        "progress1": {
+          "id": "progress1",
+          "userId": "user1",
+          "subjectId": "subject1",
+          "questionsBankId": "bank1",
+          "questionsAnswered": 10,
+          "correctAnswers": 8,
+          "accuracy": 80.0,
+          "totalStudyTime": 45,
+          "lastActivity": "quiz",
+          "createdAt": "2025-04-24T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        },
+        "progress2": {
+          "id": "progress2",
+          "userId": "user1",
+          "subjectId": "subject2",
+          "questionsBankId": "bank3",
+          "questionsAnswered": 5,
+          "correctAnswers": 3,
+          "accuracy": 60.0,
+          "totalStudyTime": 30,
+          "lastActivity": "reading",
+          "createdAt": "2025-04-24T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        },
+        "progress3": {
+          "id": "progress3",
+          "userId": "user2",
+          "subjectId": "subject1",
+          "questionsBankId": "bank1",
+          "questionsAnswered": 15,
+          "correctAnswers": 12,
+          "accuracy": 80.0,
+          "totalStudyTime": 60,
+          "lastActivity": "exercise",
+          "createdAt": "2025-04-24T00:00:00.000Z",
+          "updatedAt": "2025-04-25T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}

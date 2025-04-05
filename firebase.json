@@ -1,0 +1,56 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tutoria-v2",
+          "appId": "1:1097492456079:android:99bbdfa6380ba993d186fa",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "tutoria-v2",
+          "appId": "1:1097492456079:ios:e3c6b993204143ddd186fa",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "tutoria-v2",
+          "appId": "1:1097492456079:ios:e3c6b993204143ddd186fa",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tutoria-v2",
+          "configurations": {
+            "android": "1:1097492456079:android:99bbdfa6380ba993d186fa",
+            "ios": "1:1097492456079:ios:e3c6b993204143ddd186fa",
+            "macos": "1:1097492456079:ios:e3c6b993204143ddd186fa",
+            "web": "1:1097492456079:web:becf35e60604efd8d186fa",
+            "windows": "1:1097492456079:web:eb5bcdafe6841e7ed186fa"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules.js",
+    "indexes": "firestore-indexes.json"
+  },
+  "hosting": {
+    "public": "tutoria_app",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
