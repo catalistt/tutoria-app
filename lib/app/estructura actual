@@ -1,0 +1,20 @@
+lib/
+├── app/
+│   ├── routes.dart          # Sistema de navegación usando GoRouter
+│   └── app.dart             # Configuración de la aplicación
+├── models/
+│   ├── user.dart            # Modelo de usuario
+│   └── subject.dart         # Modelo de materias
+├── services/
+│   ├── auth_service.dart    # Servicio de autenticación (simulado)
+│   └── subject_service.dart # Servicio de materias (simulado)
+├── presentation/
+│   ├── features/
+│   │   ├── auth/
+│   │   │   └── screens/     # Pantallas de login y registro
+│   │   ├── home/
+│   │   │   └── screens/     # Pantalla principal
+│   │   └── subjects/
+│   │       └── screens/     # Pantallas de materias
+│   └── common_widgets/      # Widgets reutilizables
+└── main.dart                # Punto de entrada
