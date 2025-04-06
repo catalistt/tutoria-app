@@ -1,77 +1,27 @@
+// lib/presentation/features/home/screens/home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tutoria_app/core/services/auth_service.dart';
-import 'package:tutoria_app/data/datasources/api/deepseek_service.dart';
-import 'package:tutoria_app/presentation/common_widgets/custom_widgets.dart';
-import 'package:tutoria_app/presentation/features/home/widgets/subject_card.dart';
-import 'package:tutoria_app/presentation/features/home/widgets/welcome_banner.dart';
-import 'package:tutoria_app/presentation/features/home/widgets/recent_activity_card.dart';
-import 'package:tutoria_app/presentation/features/home/providers/home_providers.dart';
+import 'package:tutoria_app/services/auth_service.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  bool _isLoading = true;
-  String? _welcomeMessage;
-  
-  @override
-  void initState() {
-    super.initState();
-    _loadWelcomeMessage();
-  }
-  
-  Future<void> _loadWelcomeMessage() async {
-    final user = await ref.read(currentUserProvider.future);
-    
-    if (user != null) {
-      final message = await ref.read(deepseekServiceProvider).generateWelcomeMessage(
-        studentName: user.name,
-        grade: user.grade,
-        educationalGoal: user.educationalGoal,
-      );
-      
-      if (mounted) {
-        setState(() {
-          _welcomeMessage = message;
-          _isLoading = false;
-        });
-      }
-    } else {
-      if (mounted) {
-        setState(() {
-          _welcomeMessage = "¡Bienvenido a TutorIA! Estamos aquí para ayudarte a aprender de manera personalizada.";
-          _isLoading = false;
-        });
-      }
-    }
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    final subjects = ref.watch(subjectsProvider);
-    final recentActivities = ref.watch(recentActivitiesProvider);
-    final user = ref.watch(currentUserProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateProvider);
+    final user = authState.user;
     
     return Scaffold(
       appBar: AppBar(
         title: const Text('TutorIA'),
+        backgroundColor: Colors.green.shade300,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_outlined),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: () {
-              // TODO: Implementar pantalla de notificaciones
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            onPressed: () {
-              // TODO: Implementar pantalla de perfil
+              ref.read(authStateProvider.notifier).signOut();
+              context.go('/');
             },
           ),
         ],
@@ -82,47 +32,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: Colors.green.shade300,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage('assets/images/avatar.png'),
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person, size: 40, color: Colors.green),
                   ),
                   const SizedBox(height: 10),
-                  user.when(
-                    data: (userData) => userData != null
-                        ? Text(
-                            userData.name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          )
-                        : const Text('Usuario'),
-                    loading: () => const Text('Cargando...'),
-                    error: (_, __) => const Text('Error'),
+                  Text(
+                    user?.name ?? 'Usuario',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
                   ),
-                  user.when(
-                    data: (userData) => userData != null
-                        ? Text(
-                            userData.email,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          )
-                        : const Text('email@ejemplo.com'),
-                    loading: () => const Text(''),
-                    error: (_, __) => const Text(''),
+                  Text(
+                    user?.email ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home_outlined),
+              leading: const Icon(Icons.home),
               title: const Text('Inicio'),
               selected: true,
               onTap: () {
@@ -130,188 +69,249 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.route_outlined),
-              title: const Text('Mi ruta de aprendizaje'),
+              leading: const Icon(Icons.book),
+              title: const Text('Mis Materias'),
               onTap: () {
                 Navigator.pop(context);
-                context.push('/learning-path');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.chat_outlined),
+              leading: const Icon(Icons.chat),
               title: const Text('Chat con TutorIA'),
               onTap: () {
                 Navigator.pop(context);
-                context.push('/chat');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.insert_chart_outlined),
-              title: const Text('Estadísticas'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Implementar pantalla de estadísticas
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings_outlined),
+              leading: const Icon(Icons.settings),
               title: const Text('Configuración'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implementar pantalla de configuración
               },
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),
-              title: const Text('Cerrar sesión'),
-              onTap: () async {
-                await ref.read(authServiceProvider).signOut();
-                if (context.mounted) {
-                  context.go('/auth/login');
-                }
+              title: const Text('Cerrar Sesión'),
+              onTap: () {
+                ref.read(authStateProvider.notifier).signOut();
+                context.go('/');
               },
             ),
           ],
         ),
       ),
-      body: _isLoading
-          ? const Center(
-              child: LoadingIndicator(),
-            )
-          : RefreshIndicator(
-              onRefresh: () async {
-                // Recargar datos
-                ref.invalidate(subjectsProvider);
-                ref.invalidate(recentActivitiesProvider);
-              },
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.green.shade300,
+                    Colors.green.shade100,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '¡Hola, ${user?.name.split(' ').first ?? 'Usuario'}!',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Bienvenido de vuelta a tu espacio de aprendizaje personalizado.',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Tus materias',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              height: 120,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildSubjectCard('Matemáticas', Colors.blue),
+                  _buildSubjectCard('Lenguaje', Colors.purple),
+                  _buildSubjectCard('Ciencias', Colors.teal),
+                  _buildSubjectCard('Historia', Colors.amber),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Actividad reciente',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 15),
+            _buildActivityCard(
+              'Matemáticas - Ecuaciones', 
+              'Completaste 5 ejercicios',
+              Colors.blue,
+              Icons.assignment_turned_in,
+              'Hoy',
+              0.8,
+            ),
+            _buildActivityCard(
+              'Lenguaje - Comprensión lectora', 
+              'Comenzaste un cuestionario',
+              Colors.purple,
+              Icons.book,
+              'Ayer',
+              0.3,
+            ),
+            _buildActivityCard(
+              'Ciencias - El sistema solar', 
+              'Viste un video explicativo',
+              Colors.teal,
+              Icons.play_circle_fill,
+              'Hace 2 días',
+              1.0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildSubjectCard(String title, Color color) {
+    return Container(
+      width: 100,
+      margin: const EdgeInsets.only(right: 15),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.book,
+            color: color,
+            size: 40,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildActivityCard(
+    String title, 
+    String subtitle, 
+    Color color, 
+    IconData icon, 
+    String date,
+    double progress,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 15),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      WelcomeBanner(message: _welcomeMessage!),
-                      const SizedBox(height: 24),
-                      
-                      const SectionTitle(
-                        title: 'Tus materias',
-                        subtitle: 'Continúa desde donde lo dejaste',
-                      ),
-                      
-                      subjects.when(
-                        data: (data) {
-                          if (data.isEmpty) {
-                            return const EmptyState(
-                              title: 'Sin materias',
-                              message: 'No tienes materias disponibles en este momento.',
-                              icon: Icons.school_outlined,
-                            );
-                          }
-                          
-                          return SizedBox(
-                            height: 140,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: data.length,
-                              itemBuilder: (context, index) {
-                                final subject = data[index];
-                                return SubjectCard(
-                                  name: subject.name,
-                                  imageUrl: subject.imageUrl,
-                                  onTap: () {
-                                    context.push('/subject/${subject.id}');
-                                  },
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        loading: () => const Center(
-                          child: LoadingIndicator(),
-                        ),
-                        error: (error, _) => ErrorMessage(
-                          message: 'Error al cargar materias: $error',
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      
-                      const SizedBox(height: 24),
-                      
-                      const SectionTitle(
-                        title: 'Actividad reciente',
-                        subtitle: 'Tus últimas sesiones de estudio',
-                        onMorePressed: null, // TODO: Implementar pantalla de historial completo
-                      ),
-                      
-                      recentActivities.when(
-                        data: (data) {
-                          if (data.isEmpty) {
-                            return const EmptyState(
-                              title: 'Sin actividad reciente',
-                              message: 'No has realizado actividades recientemente. ¡Comienza a estudiar!',
-                              icon: Icons.history_outlined,
-                            );
-                          }
-                          
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: data.length > 3 ? 3 : data.length,
-                            itemBuilder: (context, index) {
-                              final activity = data[index];
-                              return RecentActivityCard(
-                                title: activity['title'],
-                                subtitle: activity['subtitle'],
-                                date: activity['date'],
-                                type: activity['type'],
-                                progress: activity['progress'],
-                                onTap: () {
-                                  // TODO: Navegar a la actividad correspondiente
-                                },
-                              );
-                            },
-                          );
-                        },
-                        loading: () => const Center(
-                          child: LoadingIndicator(),
-                        ),
-                        error: (error, _) => ErrorMessage(
-                          message: 'Error al cargar actividades: $error',
-                        ),
-                      ),
-                      
-                      const SizedBox(height: 24),
-                      
-                      CustomCard(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '¿Tienes alguna duda?',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Pregúntale a TutorIA sobre cualquier tema y recibe ayuda instantánea.',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            CustomButton(
-                              text: 'Chatear con TutorIA',
-                              onPressed: () {
-                                context.push('/chat');
-                              },
-                              icon: Icons.chat_outlined,
-                            ),
-                          ],
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
                 ),
+                Text(
+                  date,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            LinearProgressIndicator(
+              value: progress,
+              backgroundColor: Colors.grey.shade200,
+              color: color,
+              borderRadius: BorderRadius.circular(10),
+              minHeight: 8,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              '${(progress * 100).toInt()}% completado',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey.shade600,
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 }

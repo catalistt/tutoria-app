@@ -1,4 +1,3 @@
-// lib/services/auth_service.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tutoria_app/models/user.dart';
 

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tutoria_app/core/services/auth_service.dart';
 import 'package:tutoria_app/presentation/features/auth/screens/login_screen.dart';
 import 'package:tutoria_app/presentation/features/auth/screens/signup_screen.dart';
-import 'package:tutoria_app/presentation/features/auth/screens/forgot_password_screen.dart';
-import 'package:tutoria_app/presentation/features/auth/screens/onboarding_screen.dart';
 import 'package:tutoria_app/presentation/features/home/screens/home_screen.dart';
-import 'package:tutoria_app/presentation/features/learning_path/screens/learning_path_screen.dart';
-import 'package:tutoria_app/presentation/features/subject/screens/subject_screen.dart';
-import 'package:tutoria_app/presentation/features/chat/screens/chat_screen.dart';
+import 'package:tutoria_app/services/auth_service.dart';
 
 // Provider para el GoRouter
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -17,88 +12,89 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   
   return GoRouter(
     initialLocation: '/',
-    debugLogDiagnostics: true,
     redirect: (context, state) {
-      // Obtener el estado de autenticación del usuario
-      final isLoggedIn = authState.value != null;
+      // Si no está autenticado y no va a una ruta de autenticación, redirigir a login
+      final isAuthenticated = authState.isAuthenticated;
+      final isAuthRoute = state.matchedLocation == '/login' || state.matchedLocation == '/signup';
       
-      // Comprobar si el usuario está en una página de autenticación
-      final isGoingToAuth = state.matchedLocation.startsWith('/auth');
-      
-      // Si no está autenticado y no va a una página de autenticación, redirigir a login
-      if (!isLoggedIn && !isGoingToAuth) {
-        return '/auth/login';
+      if (!isAuthenticated && !isAuthRoute && state.matchedLocation != '/') {
+        return '/login';
       }
       
-      // Si está autenticado y va a una página de autenticación, redirigir a inicio
-      if (isLoggedIn && isGoingToAuth) {
+      // Si está autenticado y va a una ruta de autenticación, redirigir a home
+      if (isAuthenticated && isAuthRoute) {
         return '/home';
       }
       
-      // En cualquier otro caso, continuar a la ruta solicitada
       return null;
     },
     routes: [
-      // Ruta raíz que redirige según el estado de autenticación
+      // Pantalla principal
       GoRoute(
         path: '/',
-        redirect: (_, __) => authState.value != null ? '/home' : '/auth/login',
+        builder: (context, state) => const WelcomeScreen(),
       ),
       
       // Rutas de autenticación
       GoRoute(
-        path: '/auth',
+        path: '/login',
         builder: (context, state) => const LoginScreen(),
-        routes: [
-          GoRoute(
-            path: 'login',
-            builder: (context, state) => const LoginScreen(),
-          ),
-          GoRoute(
-            path: 'signup',
-            builder: (context, state) => const SignupScreen(),
-          ),
-          GoRoute(
-            path: 'forgot-password',
-            builder: (context, state) => const ForgotPasswordScreen(),
-          ),
-          GoRoute(
-            path: 'onboarding',
-            builder: (context, state) => const OnboardingScreen(),
-          ),
-        ],
+      ),
+      GoRoute(
+        path: '/signup',
+        builder: (context, state) => const SignupScreen(),
       ),
       
-      // Rutas principales
+      // Rutas protegidas
       GoRoute(
         path: '/home',
         builder: (context, state) => const HomeScreen(),
       ),
-      GoRoute(
-        path: '/learning-path',
-        builder: (context, state) => const LearningPathScreen(),
-      ),
-      GoRoute(
-        path: '/subject/:subjectId',
-        builder: (context, state) => SubjectScreen(
-          subjectId: state.pathParameters['subjectId'] ?? '',
-        ),
-      ),
-      GoRoute(
-        path: '/chat',
-        builder: (context, state) => const ChatScreen(),
-      ),
-      GoRoute(
-        path: '/chat/:questionId',
-        builder: (context, state) => ChatScreen(
-          questionId: state.pathParameters['questionId'],
-        ),
-      ),
     ],
-    errorBuilder: (context, state) => Scaffold(
-      body: Center(
-        child: Text('Error: ${state.error}'),
-      ),
-    ),
   );
 });
+
+// Pantalla de bienvenida
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TutorIA'),
+        backgroundColor: Colors.green.shade300,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Bienvenido a TutorIA',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Plataforma de aprendizaje personalizado con IA',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () => context.go('/login'),
+              child: const Text('Iniciar Sesión'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => context.go('/signup'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Registrarse'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
