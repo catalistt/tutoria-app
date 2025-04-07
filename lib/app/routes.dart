@@ -5,6 +5,7 @@ import 'package:tutoria_app/presentation/features/auth/screens/login_screen.dart
 import 'package:tutoria_app/presentation/features/auth/screens/signup_screen.dart';
 import 'package:tutoria_app/presentation/features/home/screens/home_screen.dart';
 import 'package:tutoria_app/services/auth_service.dart';
+import 'package:tutoria_app/presentation/features/subject/screens/subject_detail_screen.dart';
 
 // Provider para el GoRouter
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -35,6 +36,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const WelcomeScreen(),
       ),
       
+      GoRoute(
+        path: '/subject/:subjectId',
+        builder: (context, state) => SubjectDetailScreen(
+          subjectId: state.pathParameters['subjectId']!,
+        ),
+      ),
+
       // Rutas de autenticación
       GoRoute(
         path: '/login',
